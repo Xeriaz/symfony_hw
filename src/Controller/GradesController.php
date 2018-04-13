@@ -10,13 +10,13 @@ class GradesController extends Controller
     /**
      * @Route("/grades/{team}/{mentor}/{student}", name="grades")
      */
-    public function index()
+    public function index($team, $mentor, $student)
     {
         return $this->render('grades/index.html.twig', [
             'controller_name' => 'GradesController',
-            'team'         => '',
-            'mentor'       => '',
-            'luckyStudent' => 'Airidas',
+            'team'         => $team,
+            'mentor'       => $mentor,
+            'luckyStudent' => $student,
         ]);
     }
 }

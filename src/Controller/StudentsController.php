@@ -18,14 +18,13 @@ class StudentsController extends Controller
 
 
     /**
-     * @Route("/students", name="students")
+     * @Route("/", name="students")
      */
     public function index()
     {
-        $this->getStudentsFromTeams();
         return $this->render('students/index.html.twig', [
             'controller_name' => 'StudentsController',
-            'students' => $this->academyInfo(),
+            'academyInfo' => $this->academyInfo(),
         ]);
     }
 
@@ -34,8 +33,4 @@ class StudentsController extends Controller
         return json_decode($this->jsonData, true);
     }
 
-    public function getStudentsFromTeams()
-    {
-        var_dump($this->academyInfo());
-    }
 }

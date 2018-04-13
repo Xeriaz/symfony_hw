@@ -10,11 +10,13 @@
 {% block body %}
     <h1 class="display-5">Studentai</h1>
     <ul class="list-group">
-        {% for student in students %}
-            <li class="list-group-item">
-                <a href="{{ path('grades', {'team': 'Infinite-loop',
-                    'mentor': 'Audrius', 'student': "Airidas" }) }}">{{ 'Airidas' }}</a>
-            </li>
+        {% for key, info in academyInfo %}
+            {% for member in info['members'] %}
+                <li class="list-group-item">
+                    <a href="{{ path('grades', {'team': key,
+                        'mentor': info['mentor'], 'student': member }) }}">{{ member }}</a>
+                </li>
+            {% endfor %}
         {% endfor %}
     </ul>
 
