@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th scope="row">Komanda</th>
+            <td>Lektoriai</td>
+        </tr>
+        <tr>
+            <th scope="row">Mentorius</th>
+            <td>Pats sau</td>
+        </tr>
+        <tr>
+            <th scope="row">Laimingasis(-oji)</th>
+            <td>Aurelijus</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-success" role="alert">
+        Dešimt balų
+    </div>
+    <a href="http://127.0.0.1:8800/students">Visi dalyviai</a>
+{% endblock %}
