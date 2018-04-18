@@ -3,12 +3,20 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PeopleController extends Controller
 {
+    private $jsonData = '{"Po pamok\u0173":{"mentor":"Tomas","members":["Elena","Just\u0117","Deimantas"]},
+        "Tech Guide":{"mentor":"Sergej","members":["Matas","Martynas"]},
+        "Kelion\u0117s draugas":{"mentor":"Rokas","members":["Zbignev","Aist\u0117"]},
+        "Wish A Gift":{"mentor":"Aistis","members":["Nerijus","Olga"]},
+        "Mums pakeliui":{"mentor":"Paulius","members":["Egl\u0117","Svetlana"]},
+        "Motyvacin\u0117 platforma":{"mentor":"Audrius","members":["Viktoras","Airidas"]}}';
+
     /**
      * @Route("/people", name="people")
      */
@@ -19,17 +27,45 @@ class PeopleController extends Controller
         ]);
     }
 
-
     /**
      * @Route("/validate/{element}", name="validatePerson")
      */
-    public function validate($element)
+    public function validate(Request $request, string $element)
     {
+        try {
+            $input = json_decode($request->getContent(), true)['input'];
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
+        }
+
         switch($element) {
-            case 'Name':
-                return new JsonResponse(['valid' => true]);
+            case 'name':
+                return new JsonResponse(['valid' => true, 'input' => $input]);
         }
 
         return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @return array
+     */
+    private function getStorage(): array
+    {
+        return json_decode($this->jsonData, true);
+    }
+
+    /**
+     * @return array
+     */
+    private function getStudents(): array
+    {
+        $students = [];
+        $storage = $this->getStorage();
+        foreach ($storage as $teamData) {
+            foreach ($teamData['members'] as $student) {
+                $students[] = strtolower($student);
+            }
+        }
+        return $students;
     }
 }
