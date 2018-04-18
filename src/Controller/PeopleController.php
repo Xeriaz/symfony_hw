@@ -96,7 +96,7 @@ class PeopleController extends Controller
         $teams = [];
         $jsonArray = $this->getStorage();
         foreach ($jsonArray as $key=>$team){
-            $teams[] = $key;
+            $teams[] = strtolower($key);
         }
         return $teams;
     }
