@@ -24,6 +24,7 @@ class PeopleController extends Controller
     {
         return $this->render('people/index.html.twig', [
             'controller_name' => 'PeopleController',
+            'students' => $this->getStorage()
         ]);
     }
 
@@ -38,9 +39,30 @@ class PeopleController extends Controller
             return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
         }
 
+        $students = $this->getStudents();
         switch($element) {
             case 'name':
-                return new JsonResponse(['valid' => true, 'input' => $input]);
+                return new JsonResponse(['valid' => in_array(strtolower($input), $students)]);
+        }
+
+        return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @Route("/validateTeam/{element}", name="validateTeam")
+     */
+    public function validateTeam(Request $request, string $element)
+    {
+        try {
+            $input = json_decode($request->getContent(), true)['input'];
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $teams = $this->getTeams();
+        switch($element) {
+            case 'name':
+                return new JsonResponse(['valid' => in_array(strtolower($input), $teams)]);
         }
 
         return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
@@ -67,5 +89,15 @@ class PeopleController extends Controller
             }
         }
         return $students;
+    }
+
+    private function getTeams(): array
+    {
+        $teams = [];
+        $jsonArray = $this->getStorage();
+        foreach ($jsonArray as $key=>$team){
+            $teams[] = $key;
+        }
+        return $teams;
     }
 }
