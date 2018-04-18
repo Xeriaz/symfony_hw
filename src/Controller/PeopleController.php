@@ -61,7 +61,7 @@ class PeopleController extends Controller
 
         $teams = $this->getTeams();
         switch($element) {
-            case 'name':
+            case 'team':
                 return new JsonResponse(['valid' => in_array(strtolower($input), $teams)]);
         }
 
