@@ -19,9 +19,30 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $website;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $linkedinLink;
+
+    /**
+     * @return mixed
+     */
+    public function getLinkedinLink()
+    {
+        return $this->linkedinLink;
+    }
+
+    /**
+     * @param mixed $linkedinLink
+     */
+    public function setLinkedinLink($linkedinLink): void
+    {
+        $this->linkedinLink = $linkedinLink;
+    }
 
     /**
      * @return mixed
@@ -39,6 +60,9 @@ class User extends BaseUser
         $this->website = $website;
     }
 
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;

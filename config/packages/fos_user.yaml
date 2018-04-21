@@ -15,6 +15,9 @@ fos_user:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
 
-registration:
-    form:
-        type: App\Form\FOS_RegistrationForm
+    registration:
+        form:
+            type: App\Form\Type\FOSRegistrationFormType
+
+twig:
+  form_themes: ['bootstrap_4_layout.html.twig']

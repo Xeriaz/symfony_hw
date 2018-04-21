@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Type;
 
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\AbstractType;
@@ -14,15 +14,16 @@ class FOSRegistrationFormType extends AbstractType
     {
         $builder
             ->add('website', UrlType::class)
+            ->add('linkedinlink', UrlType::class, ['label' => 'LinkedIn'])
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefault([
-            'website' => '',
-        ]);
-    }
+//    public function configureOptions(OptionsResolver $resolver)
+//    {
+//        $resolver->setDefault([
+//            'website' => '',
+//        ]);
+//    }
 
     public function getParent()
     {
