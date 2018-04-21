@@ -23,6 +23,20 @@
                     <a class="nav-link" href="{{ path('people') }}">Žmonės</a>
                 </li>
             </ul>
+            <ul class="navbar-nav pull-right">
+                {% if is_granted('ROLE_USER') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('fos_user_security_logout') }}">Sign Out</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('fos_user_security_login') }}">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('fos_user_registration_register') }}">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </nav>
         {% block body %}{% endblock %}
