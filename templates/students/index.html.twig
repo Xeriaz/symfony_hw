@@ -13,8 +13,12 @@
         {% for key, info in academyInfo %}
             {% for member in info['members'] %}
                 <li class="list-group-item">
-                    <a href="{{ path('grades', {'team': key,
-                        'mentor': info['mentor'], 'student': member }) }}">{{ member }}</a>
+                    <a href="{{ path('grades', {
+                        'utm_source': 'akademija',
+                        'utm_campaign': info['mentor'],
+                        'utm_term': member,
+                        'utm_content': key })
+                    }}">{{ member }}</a>
                 </li>
             {% endfor %}
         {% endfor %}
