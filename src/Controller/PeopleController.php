@@ -29,7 +29,7 @@ class PeopleController extends Controller
     }
 
     /**
-     * @Route("/validate/{element}", name="validatePerson")
+     * @Route("/validate/{element}", name="validate")
      */
     public function validate(Request $request, string $element)
     {
@@ -39,30 +39,15 @@ class PeopleController extends Controller
             return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
         }
 
-        $students = $this->getStudents();
         switch($element) {
             case 'name':
+                $students = $this->getStudents();
                 return new JsonResponse(['valid' => in_array(strtolower($input), $students)]);
-        }
-
-        return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
-    }
-
-    /**
-     * @Route("/validateTeam/{element}", name="validateTeam")
-     */
-    public function validateTeam(Request $request, string $element)
-    {
-        try {
-            $input = json_decode($request->getContent(), true)['input'];
-        } catch (\Exception $e) {
-            return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
-        }
-
-        $teams = $this->getTeams();
-        switch($element) {
+                break;
             case 'team':
+                $teams = $this->getTeams();
                 return new JsonResponse(['valid' => in_array(strtolower($input), $teams)]);
+                break;
         }
 
         return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);

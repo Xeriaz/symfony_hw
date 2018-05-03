@@ -9,9 +9,9 @@
     </div>
 
     Vardas: <input type="text" id="name"/>
-    <span id="validation-result" data-path="{{ path('validatePerson', {'element': 'name'}) }}"></span><br>
+    <span id="validation-result" data-path="{{ path('validate', {'element': 'name'}) }}"></span><br>
     Komanda: <input type="text" id="team"/>
-    <span id="teamValidation-result" data-path="{{ path('validateTeam', {'element': 'team'}) }}"></span>
+    <span id="teamValidation-result" data-path="{{ path('validate', {'element': 'team'}) }}"></span>
     <hr>
     {% for team, student in students %}
         <b>{{ team }}:</b> {{ student.members|join(', ') }};<br>
